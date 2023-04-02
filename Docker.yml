@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+
+  peer:
+
+    image: my-peer-image
+
+    environment:
+
+      - ORDERER_IP=${ORDERER_IP}
+
+      - CA_IP=${CA_IP}
+
+    ports:
+
+      - "5000:5000"
+
+    volumes:
+
+      - .:/code
+
+  vosy:
+
+    image: my-vosy-image
+
+    environment:
+
+      - HOST_IP=peer
+
+    ports:
+
+      - "8080:8080"
+
+    volumes:
+
+      - .:/code
+
+    depends_on:
+
+      - peer
+
