@@ -1,0 +1,76 @@
+<!doctype html>
+
+<html lang="en">
+
+  <head>
+
+    <!-- Required meta tags -->
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-HaI/4oQU0R4yRd8W1spcxjwq3M+B2QZ1S8WgKjGvFJlKrHlB0jKtMBiQgVlCxz1s" crossorigin="anonymous">
+
+    <title>{{ title }}</title>
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+      <div class="container-fluid">
+
+        <a class="navbar-brand" href="/">BCB_VOSY</a>
+
+      </div>
+
+    </nav>
+
+    <div class="container mt-5">
+
+      <h1 class="text-center">{{ title }}</h1>
+
+      <hr>
+
+      {% with messages = get_flashed_messages() %}
+
+      {% if messages %}
+
+      <div class="alert alert-info" role="alert">
+
+        <ul>
+
+        {% for message in messages %}
+
+          <li>{{ message }}</li>
+
+        {% endfor %}
+
+        </ul>
+
+      </div>
+
+      {% endif %}
+
+      {% endwith %}
+
+      {% block content %}{% endblock %}
+
+    </div>
+
+    <!-- Optional JavaScript -->
+
+    <!-- Popper.js first, then Bootstrap JS -->
+
+    <script src="https://unpkg.com/@popperjs/core@2.9.1/dist/esm/popper.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-ml+G/AdJNQ8ogvX9C0N7O49KV+ydT1dy/kZ3qoKRJBM/WCFeDpIN1kLqw3q48JSt" crossorigin="anonymous"></script>
+
+  </body>
+
+</html>
+
