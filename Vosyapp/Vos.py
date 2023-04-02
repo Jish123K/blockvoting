@@ -175,6 +175,21 @@ class SurveyClose(Resource):
         session.commit()
 
         return survey.serialize()
+class SurveyCount(Resource):
+    def get(self, survey_id):
+        session = Session()
+        survey = session.query(SurveyModel).get(survey_id)
+        if not survey:
+            return {'message': 'Survey not found'}, 404
+        if survey.status != 'closed':
+            return {'message': 'Survey is not closed'}, 400
+        votes = session.query(VoteModel).filter_by(survey_id=survey_id).all()
+        results = {}
+        for answer in survey.answers.split(';'):
+            results[answer] = 0
+        for vote in votes:
+            results[vote.vote] += 1
+        return {'question': survey.question, 'results': results}
 
-class SurveyCount
+
 
