@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <br>
+
+  <center>
+
+    <a href="/mine" target="_blank"><button type="button" class="themeBtn3">Mine</button></a>
+
+    <a href="/"><button type="button" class="themeBtn">Resync</button></a>
+
+    <a href="/update_chaincode"><button type="button" class="themeBtn4">Update Chaincode</button></a>
+
+    <a href="/pending_tx" target="_blank><button type="button" class="themeBtn2">Pending Transaction</button></a>
+
+    <a href="/list_nodes" target="_blank"><button type="button" class="themeBtn4">List Node</button></a>
+
+  </center>
+
+  <center><p style="color:red">To create a new survey, please click Update Chaincode and Mine before</p></center>
+
+  
+
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-md-8 col-md-offset-2">
+
+        <div class="panel panel-default">
+
+          <div class="panel-heading">
+
+            <h3 class="panel-title">Post New Survey</h3>
+
+          </div>
+
+          <div class="panel-body">
+
+            <form class="form-horizontal" action="/submit" method="post">
+
+              {% csrf_token %}
+
+              <div class="form-group">
+
+                <label for="questionid" class="col-md-4 control-label">Question ID</label>
+
+                <div class="col-md-6">
+
+                  <input type="text" class="form-control" id="questionid" name="questionid" placeholder="2354" required>
+
+                </div>
+
+              </div>
+
+              <div class="form-group">
+
+                <label for="question" class="col-md-4 control-label">Survey</label>
+
+                <div class="col-md-6">
+
+                  <textarea class="form-control" id="question" name="question" placeholder="Just write a survey you want to..." required></textarea>
+
+                </div>
+
+              </div>
+
+              <div class="form-group">
+
+                <label for="answer" class="col-md-4 control-label">Answer</label>
+
+                <div class="col-md-6">
+
+                  <input type="text" class="form-control" id="answer" name="answer" placeholder="ans1|ans2|ans3|..." required>
+
+                </div>
+
+              </div>
+
+              <div class="form-group">
+
+                <label for="opening_time" class="col-md-4 control-label">Opening Time (minute)</label>
+
+                <div class="col-md-6">
+
+                  <input type="text" class="form-control" id="opening_time" name="opening_time" placeholder="3" required>
+
+                </div>
+
+              </div>
+
+              <div class="form-group">
+
+                <div class="col-md-6 col-md-offset-4">
+
+                  <button type="submit" class="btn btn-primary">Submit</button>
+
+                </div>
+
+              </div>
+
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  
+
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-md-8 col-md-offset-2">
+
+        <div class="panel panel-default">
+
+          <div class="panel-heading">
+
+            <h3 class="panel-title">Open Surveys</h3>
+
+          </div>
+
+          <div class="panel-body">
+
+            {% for post in posts %}
+
+            {% for post in posts %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{ post.question }}</h3>
+    </div>
+    <div class="panel-body">
+      <form class="form-horizontal" action="/submit_answer" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="answer" class="col-md-4 control-label">Select your answer:</label>
+          <div class="col-md-6">
+            <select class="form-control" id="answer" name="answer">
+              {% for option in post.options %}
+                <option value="{{ option }}">{{ option }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-6 col-md-offset-4">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endfor %}
+  
+
